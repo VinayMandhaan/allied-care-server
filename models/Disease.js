@@ -10,9 +10,16 @@ const DiseaseSchema = new mongoose.Schema({
     symptoms: {
         type: [String]
     },
-    remedies: {
-        type: [String]
-    },
+    remedies: [
+        {
+            remedy: {
+                type: String
+            },
+            category: {
+                type: String 
+            }
+        }
+    ],
     price:{
         type: Number
     }

@@ -7,14 +7,20 @@ const config = require('config')
 //CREATE DISEASE
 
 router.post("/", async (req, res) => {
-    const { title, causes, symptoms, remedies, price } = req.body
+    const { title, causes, symptoms, remediesList, price } = req.body
     try {
         let disease = new Disease({
             title,
             causes,
             symptoms,
-            remedies,
             price
+        })
+        remediesList.map(s => {
+            const newRemedy = {
+                remedy: s.remedy,
+                category: s.category
+            }
+            disease.remedies.push(newRemedy)
         })
         await disease.save()
         return res.json({ disease })
