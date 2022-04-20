@@ -34,7 +34,6 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         let disease = await Disease.find()
-        console.log(disease, 'DISEASE')
         if (disease.length > 0) {
             return res.json(disease)
         } else {
