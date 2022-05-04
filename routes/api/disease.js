@@ -46,4 +46,23 @@ router.get("/", async (req, res) => {
 })
 
 
+//DELETE DISEASE
+
+router.post('/delete', async(req,res) => {
+    try{
+        const {id} = req.body
+        var disease = await Disease.findOne({ _id: id });
+        if (disease) {
+            const disease = await Disease.findByIdAndDelete(id);
+            return res.json({ msg: "Disease Deleted", disease });
+          } else {
+            return res.json({ msg: "No Disease Found" });
+          }
+    }catch(err){
+        console.log(err)
+        res.status(500).send("Server Error")
+    }
+})
+
+
 module.exports = router;
