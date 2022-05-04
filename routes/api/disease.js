@@ -48,17 +48,44 @@ router.get("/", async (req, res) => {
 
 //DELETE DISEASE
 
-router.post('/delete', async(req,res) => {
-    try{
-        const {id} = req.body
+router.post('/delete', async (req, res) => {
+    try {
+        const { id } = req.body
         var disease = await Disease.findOne({ _id: id });
         if (disease) {
             const disease = await Disease.findByIdAndDelete(id);
             return res.json({ msg: "Disease Deleted", disease });
-          } else {
+        } else {
             return res.json({ msg: "No Disease Found" });
-          }
-    }catch(err){
+        }
+    } catch (err) {
+        console.log(err)
+        res.status(500).send("Server Error")
+    }
+})
+
+
+//UPDATE DISEASE
+
+router.post('/update', async (req, res) => {
+    const { title, causes, symptoms, remediesList, price, id } = req.body
+    console.log(id)
+    try {
+        var disease = await Disease.findOne({ _id: id });
+        if (!disease) {
+            return res.json({ msg: 'No Disease Found' })
+        }
+        console.log(disease, 'HEHE')
+        disease.title = title ? title : disease.title;
+        disease.price = price ? price : disease.price;
+        disease.causes = causes ? causes : disease.causes;
+        disease.symptoms = symptoms ? symptoms : disease.symptoms;
+        disease.remedies = remediesList ? remediesList : disease.remedies;
+
+        await disease.save();
+        return res.json({ msg: "Disease Updated", disease });
+
+    } catch (err) {
         console.log(err)
         res.status(500).send("Server Error")
     }
