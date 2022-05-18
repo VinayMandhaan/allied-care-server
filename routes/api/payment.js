@@ -19,8 +19,8 @@ paypal.configure({
             payment_method: "paypal"
         },
         redirect_urls: {
-            return_url: `https://pay-easy-server.herokuapp.com/api/paypal/success/${req.params.price}`,
-            cancel_url: "https://pay-easy-server.herokuapp.com/api/paypal/cancel"
+            return_url: `https://allied-care-heroku.herokuapp.com/api/payment/success/${req.params.price}`,
+            cancel_url: "https://allied-care-heroku.herokuapp.com/api/payment/cancel"
         },
         transactions: [
             {
