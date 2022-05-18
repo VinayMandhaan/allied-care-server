@@ -19,7 +19,7 @@ app.get('/',(req,res)=>{
 app.use('/api/user',require('./routes/api/user'))
 app.use('/api/auth',require('./routes/api/auth'))
 app.use('/api/disease',require('./routes/api/disease'))
-// app.use('/api/payment',require('./routes/api/payment'))
+app.use('/api/payment',require('./routes/api/payment'))
 
 app.listen(PORT, ()=>{
     console.log(`Server Started on Port ${PORT}`)
