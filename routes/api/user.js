@@ -36,9 +36,12 @@ router.get("/disease", auth, async (req, res) => {
     try {
         var user = await User.findOne({ _id: req.user.id }).select('disease').populate('disease')
         if (user) {
-            return res.json({user})
+            const unique = [];
+            user.disease.map(x => unique.filter(a => a.title == x.title && a._id == x._id).length > 0 ? null : unique.push(x));
+            console.log(unique.length,'HEHE')
+            user.disease = unique;
+            return res.json({ user })
         }
-
     } catch (err) {
         console.log(err)
     }
