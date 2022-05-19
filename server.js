@@ -1,7 +1,15 @@
 const express = require('express')
 const connectDB = require('./config/db')
 var cors = require('cors')
+const path  = require('path')
 const app = express();
+
+const engines = require("consolidate");
+
+
+app.engine('ejs', require('ejs').__express)
+app.set("views", path.join(__dirname,'templates'))
+app.set("view engine", "ejs");
 
 connectDB();
 
