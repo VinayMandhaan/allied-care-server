@@ -72,7 +72,7 @@ router.post('/disease/payment', auth, async (req, res) => {
     }
 })
 
-router.get('/disease/user/payment', auth, async (req, res) => {
+router.get('/disease/history', auth, async (req, res) => {
     try {
         var disease = Payment.findOne({ user: req.user.id }).populate('disease')
         if(disease.length > 0){
