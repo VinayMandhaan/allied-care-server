@@ -74,9 +74,13 @@ router.post('/disease/payment', auth, async (req, res) => {
 
 router.get('/disease/history', auth, async (req, res) => {
     try {
-        var disease = Payment.findOne({ user: req.user.id }).populate('disease')
-        if(disease.length > 0){
-            return res.json({ disease })
+        console.log(req.user.id)
+        var diseases = await Payment.find({ user: req.user.id  }).populate('disease')
+        if(diseases){
+
+            const unique = [];
+            diseases.map(x => unique.filter(a => a.disease._id == x.disease._id).length > 0 ? null : unique.push(x));
+            return res.json({ unique })
         } else {
             return res.json({ msg: 'Not Found' })
         }
